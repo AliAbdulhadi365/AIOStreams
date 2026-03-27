@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.26.1](https://github.com/Viren070/AIOStreams/compare/v2.26.0...v2.26.1) (2026-03-27)
+
+
+### Bug Fixes
+
+* **frontend/TemplateOption:** ensure modal is always rendered for subsection and create SubsectionTrigger component ([4975224](https://github.com/Viren070/AIOStreams/commit/4975224edc5eb0a38932ab50a58934189ddfd0d6))
+* **frontend:** only drag on handle for addon reorder modal ([e2415e4](https://github.com/Viren070/AIOStreams/commit/e2415e494cbce6803146c96b78dd4c1a06623c46))
+* **frontend:** order categories by order of appearance in list ([fa848b4](https://github.com/Viren070/AIOStreams/commit/fa848b4be08870c0e02bdd438bcddf5690869b3a))
+
 ## [2.26.0](https://github.com/Viren070/AIOStreams/compare/v2.25.4...v2.26.0) (2026-03-25)
 
 
