@@ -470,7 +470,11 @@ class StreamParser {
     _: Stream,
     currentParsedStream: ParsedStream
   ): number | undefined {
-    if (currentParsedStream.size && currentParsedStream.duration) {
+    if (
+      currentParsedStream.size &&
+      currentParsedStream.duration &&
+      !currentParsedStream.bitrate
+    ) {
       const sizeBits = currentParsedStream.size * 8;
       const durationSeconds = currentParsedStream.duration / 1000;
       if (durationSeconds > 0) {
@@ -489,6 +493,10 @@ class StreamParser {
       return 'live';
     }
 
+    if (stream.externalUrl) {
+      return 'external';
+    }
+
     if (service?.id === constants.EASYNEWS_SERVICE) {
       return 'usenet';
     } else if (service) {
@@ -502,10 +510,6 @@ class StreamParser {
 
     if (stream.infoHash) {
       return 'p2p';
-    }
-
-    if (stream.externalUrl) {
-      return 'external';
     }
 
     if (stream.ytId) {
@@ -646,19 +650,24 @@ class StreamParser {
     if (!match) return 0;
     const value = parseFloat(match[1]);
     const unit = match[3];
-
+    let result = 0;
     switch (unit.toUpperCase()) {
       case 'TB':
-        return value * k * k * k * k;
+        result = value * k * k * k * k;
+        break;
       case 'GB':
-        return value * k * k * k;
+        result = value * k * k * k;
+        break;
       case 'MB':
-        return value * k * k;
+        result = value * k * k;
+        break;
       case 'KB':
-        return value * k;
+        result = value * k;
+        break;
       default:
         return 0;
     }
+    return Math.round(result);
   }
 
   protected parseServiceData(
